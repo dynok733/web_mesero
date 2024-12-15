@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cocinero - Órdenes</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        /* Estilos generales */
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #fafafa;
+            color: #333;
+            background-image: url('https://watermark.lovepik.com/background/20211021/large/lovepik-colorful-cartoon-line-fast-food-hand-drawn-background-image_450042226.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+        }
+
+        /* Barra superior */
+        .header {
+            background-color: rgba(240, 240, 240, 0.8); /* Color de fondo con opacidad */
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 10;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .header input {
+            padding: 8px;
+            margin-right: 10px;
+            font-size: 14px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            background-color: #fff;
+            width: 120px;
+        }
+
+        .header h1 {
+            font-size: 24px;
+            color: #333;
+            margin: 0;
+            padding-left: 20px;
+        }
+
+        /* Menú de navegación */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.8);
+            position: fixed;
+            width: 100%;
+            top: 20px;
+            z-index: 20;
+        }
+
+        nav a {
+            font-size: 16px;
+            color: #333;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        nav a:hover {
+            background-color: #A8D5BA;
+        }
+
+        .logout-btn {
+            background-color: #F7B7A3;
+            color: white;
+        }
+
+        .logout-btn:hover {
+            background-color: #f29c8a;
+        }
+
+        /* Contenedor principal */
+        #container {
+            margin-top: 80px;
+            padding: 20px;
+            background-color: white; /* Fondo blanco */
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 900px;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        /* Contenedor de ordenes */
+        h3 {
+            font-size: 20px;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        h4 {
+            font-size: 18px;
+            color: #666;
+            margin-bottom: 10px;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            font-size: 16px;
+            color: #555;
+        }
+
+        form {
+            margin-top: 10px;
+        }
+
+        select {
+            padding: 8px;
+            border-radius: 5px;
+            font-size: 14px;
+            margin-right: 10px;
+        }
+
+        button {
+            background-color: #A8D5BA;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #88c7a8;
+        }
+
+        hr {
+            margin-top: 20px;
+            border: 0;
+            border-top: 1px solid #ddd;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Menú de navegación -->
+    <nav>
+        <a href="{{ url_for('logout') }}" class="logout-btn">Salir</a>
+    </nav>
+
+    <!-- Contenedor principal -->
+    <div id="container">
+        <h1></h1>
+
+        {% for cliente_nombre, cliente_data in ordenes_cliente.items() %}
+            <h3>Cliente: {{ cliente_data['cliente'] }}</h3>
+            
+            {% for orden in cliente_data['ordenes'] %}
+                <h4>Orden ID: {{ orden['id'] }} - Estado: {{ orden['estado'] }}</h4>
+                
+                <ul>
+                    <li>Producto: {{ orden['producto'] }}</li>
+                    <li>Cantidad: {{ orden['cantidad'] }}</li>
+                    <li>Precio unitario: ${{ orden['precio'] }}</li>
+                    <li>Total: ${{ orden['total'] }}</li>
+                </ul>
+                
+                <form action="{{ url_for('actualizar_orden', id_orden=orden['id']) }}" method="POST">
+                    <select name="estado">
+                        <option value="Pendiente" {% if orden['estado'] == 'Pendiente' %}selected{% endif %}>Pendiente</option>
+                        <option value="Completada" {% if orden['estado'] == 'Completada' %}selected{% endif %}>Completada</option>
+                    </select>
+                    <button type="submit">Actualizar Estado</button>
+                </form>
+                <hr>
+            {% endfor %}
+        {% endfor %}
+    </div>
+
+</body>
+</html>

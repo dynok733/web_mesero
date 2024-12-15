@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resumen del Pedido</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        /* Estilos generales */
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #fafafa;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+        }
+
+        /* Contenedor principal */
+        .container {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 800px;
+            margin-top: 20px;
+        }
+
+        h1, h2 {
+            text-align: center;
+            font-size: 28px;
+            color: #333;
+        }
+
+        h2 {
+            font-size: 24px;
+            margin-top: 20px;
+        }
+
+        p {
+            font-size: 16px;
+            color: #555;
+        }
+
+        strong {
+            color: #333;
+        }
+
+        /* Lista de productos */
+        .product-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .product-item {
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .product-item p {
+            font-size: 16px;
+            color: #777;
+            margin: 0;
+        }
+
+        .product-item span {
+            font-weight: bold;
+            color: #333;
+        }
+
+        /* Estilo del botón de pago */
+        button {
+            background-color: #A8D5BA; /* Verde pastel */
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            width: 100%;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-top: 20px;
+        }
+
+        button:hover {
+            background-color: #88c7a8;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Resumen del Pedido</h1>
+        <p><strong>Cliente:</strong> {{ nombre_cliente }}</p>
+        <p><strong>Total:</strong> ${{ total }}</p>
+
+        <h2>Productos Pedidos:</h2>
+        <ul class="product-list">
+            {% for producto in productos %}
+                <li class="product-item">
+                    <p>{{ producto.nombre }} x{{ producto.cantidad }} - <span>${{ producto.precio * producto.cantidad }}</span></p>
+                </li>
+            {% endfor %}
+        </ul>
+
+        <form action="{{ url_for('pagar') }}" method="POST">
+            <input type="hidden" name="nombre_cliente" value="{{ nombre_cliente }}">
+            <button type="submit">Pagar y Generar Ticket</button>
+        </form>
+    </div>
+</body>
+</html>

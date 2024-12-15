@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Resumen del Pedido</title>
+</head>
+<body>
+    <h2>Resumen del Pedido para {{ nombre_cliente }}</h2>
+    <ul>
+        {% for producto in productos %}
+            <li>{{ producto.nombre }} x{{ producto.cantidad }} - ${{ producto.precio * producto.cantidad }}</li>
+        {% endfor %}
+    </ul>
+    <h3>Total: ${{ total }}</h3>
+    <form action="{{ url_for('pagar', nombre_cliente=nombre_cliente) }}" method="post">
+        <button type="submit">Pagar</button>
+    </form>
+    <br>
+    <a href="{{ url_for('static', filename=ticket_pdf) }}" target="_blank">Ver Ticket en PDF</a>
+</body>
+</html>

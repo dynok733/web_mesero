@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ticket de Pedido</title>
+</head>
+<body>
+    <h2>Resumen de tu Pedido - Ticket</h2>
+
+    <p><strong>Cliente:</strong> {{ nombre_cliente }}</p>
+    
+    <h3>Productos:</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Producto</th>
+                <th>Cantidad</th>
+                <th>Precio</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for producto in productos %}
+                <tr>
+                    <td>{{ producto.nombre }}</td>
+                    <td>{{ producto.cantidad }}</td>
+                    <td>${{ producto.precio }}</td>
+                    <td>${{ producto.cantidad * producto.precio }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    
+    <h3>Total a Pagar: ${{ total }}</h3>
+    
+    <p>Tu pedido ha sido registrado correctamente y se ha enviado a la cocina. Gracias por tu compra.</p>
+    
+    <form action="/pagar" method="POST">
+        <input type="hidden" name="nombre_cliente" value="{{ nombre_cliente }}">
+        <input type="hidden" name="total" value="{{ total }}">
+        <button type="submit">Pagar y Enviar Pedido</button>
+    </form>
+    
+
+</body>
+</html>

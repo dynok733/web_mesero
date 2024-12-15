@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pagar Pedido</title>
+</head>
+<body>
+    <h2>Ingresar Nombre del Cliente para Imprimir el Ticket</h2>
+    <form action="{{ url_for('pagar') }}" method="POST">
+        <label for="nombre_cliente">Nombre del Cliente:</label>
+        <input type="text" id="nombre_cliente" name="nombre_cliente" required>
+        <button type="submit">Pagar y Generar Ticket</button>
+    </form>
+</body>
+</html>

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agregar Producto</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        /* Estilos generales */
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #fafafa;
+            color: #333;
+            background-image: url('https://watermark.lovepik.com/background/20211021/large/lovepik-colorful-cartoon-line-fast-food-hand-drawn-background-image_450042226.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+        }
+
+        /* Estilos para el contenedor del formulario */
+        form {
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 800px;
+        }
+
+        h1, h2 {
+            text-align: center;
+            font-size: 28px;
+            color: #333;
+        }
+
+        h2 {
+            font-size: 24px;
+            margin-top: 20px;
+        }
+
+        label {
+            font-size: 16px;
+            color: #333;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            background-color: #fff;
+        }
+
+        input[type="text"]:focus {
+            border-color: #A8D5BA;
+            outline: none;
+        }
+
+        input[type="file"] {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            background-color: #fff;
+        }
+
+        input[type="file"]:focus {
+            border-color: #A8D5BA;
+            outline: none;
+        }
+
+        button {
+            background-color: #A8D5BA; /* Verde pastel */
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            width: 100%;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-top: 20px;
+        }
+
+        button:hover {
+            background-color: #88c7a8;
+        }
+
+        /* Barra superior */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px;
+            position: fixed;
+            width: 100%;
+            top: 20px;
+            z-index: 20;
+        }
+
+        nav a {
+            font-size: 16px;
+            color: #333;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        nav a:hover {
+            background-color: #A8D5BA;
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <a href="{{ url_for('ver_menu') }}" class="logout-btn">Regresar</a>
+    </nav>
+
+    <form action="{{ url_for('nuevo_producto') }}" method="POST" enctype="multipart/form-data">
+        <h1>Agregar Producto</h1>
+        <label for="categoria">Categoria:</label>
+        <input type="text" name="categoria" required><br><br>
+
+        <label for="nombre">Nombre:</label>
+        <input type="text" name="nombre" required><br><br>
+
+        <label for="precio">Precio:</label>
+        <input type="text" name="precio" required><br><br>
+
+        <label for="imagen">Imagen:</label>
+        <input type="file" name="imagen"><br><br>
+
+        <button type="submit">Guardar</button>
+    </form>
+</body>
+
+</html>
